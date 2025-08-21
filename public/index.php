@@ -35,6 +35,10 @@ $app->get('/workorders', [WorkOrderController::class, 'getAll']);
 $app->get('/customers', [CustomerController::class, 'getAll']);
 $app->get('/inv/{id}', [InventaryController::class, 'getById']);
 $app->post('/newOrder', [WorkOrderController::class, 'create']);
+$app->post('/newCustomer', [CustomerController::class, 'create']);
+
+
+
 // $app->get('/tasks', [BrandController::class, 'getAll']);
 // $app->get('/tasks/{id}', [BrandController::class, 'getById']);
 // $app->put('/tasks/{id}', [BrandController::class, 'update']);

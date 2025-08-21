@@ -17,5 +17,17 @@ class CustomerController {
         $response->getBody()->write(json_encode($customers));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
+
+    public static function create(Request $request, Response $response)
+    {
+        $data = $request ->getParsedBody();
+        (new CustomerRepository())->create($data);
+
+        $response->getBody()->write(json_encode(['message'=> 'Customer created successfully']));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+
+    }
+
+    
     
 }
