@@ -21,7 +21,7 @@ $app->add(function (Request $request, RequestHandlerInterface $handler): Respons
     return $response
         ->withHeader('Access-Control-Allow-Origin', '*') 
         ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE, OPTIONS');
 });
 
 $app->options('/{routes:.+}', function (Request $request, Response $response): Response {
@@ -29,14 +29,15 @@ $app->options('/{routes:.+}', function (Request $request, Response $response): R
 });
 
 // RUTAS
-$app->post('/brand', [BrandController::class, 'create']);
-$app->get('/brand/{id}', [BrandController::class, 'getById']);
-$app->get('/workorders', [WorkOrderController::class, 'getAll']);
-$app->get('/customers', [CustomerController::class, 'getAll']);
+$app->post('/brand', [BrandController::class, 'create']); //CREAR MARCA
+$app->get('/brand/{id}', [BrandController::class, 'getById']); //OBTENER MARCA POR ID
+$app->get('/workorders', [WorkOrderController::class, 'getAll']); //OBTENER TODAS LAS ORDENES DE TRABAJO
+$app->get('/customers', [CustomerController::class, 'getAll']); //OBTENER TODOS LOS CLIENTES 
 $app->get('/inv/{id}', [InventaryController::class, 'getById']);
 $app->post('/newOrder', [WorkOrderController::class, 'create']);
 $app->post('/newCustomer', [CustomerController::class, 'create']);
-
+$app->patch('/updateCustomer',[CustomerController::class, 'update']);
+$app->delete('/deleteCustomer',[CustomerController::class,'delete']);
 
 
 // $app->get('/tasks', [BrandController::class, 'getAll']);

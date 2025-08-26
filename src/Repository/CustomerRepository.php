@@ -34,4 +34,23 @@ class CustomerRepository {
         $stmt->execute();
         
     }
+
+    public function update (array $data)
+    {
+        $stmt = $this->db->prepare("UPDATE customer SET Company = :CompanyName, PhoneNumber = :PhoneNumber, Email = :Email WHERE Id = :Id");
+        if (empty($data['CompanyName']) || empty($data['PhoneNumber']) || empty($data['Email'])){
+            throw new Error('All fields are required');}
+            $stmt->bindParam(':Id', $data['CustomerId']);
+            $stmt->bindParam(':CompanyName', $data['CompanyName']);
+            $stmt->bindParam(':PhoneNumber', $data['PhoneNumber']);
+            $stmt->bindParam(':Email', $data['Email']);
+            $stmt->execute();
+    }
+
+    public function delete (array $data)
+    {
+        $stmt = $this->db->prepare("DELETE FROM customer WHERE Id = :Id");
+        $stmt->bindParam(':Id', $data['CustomerId']);
+        $stmt->execute();
+    }
 }

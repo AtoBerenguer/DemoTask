@@ -28,6 +28,26 @@ class CustomerController {
 
     }
 
+    public static function update(Request $request, Response $response){
+        $data = $request ->getParsedBody();
+        (new CustomerRepository())->update($data);
+
+        $response->getBody()->write(json_encode(['message'=>'Customer update succesfully']));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+ 
+    }
+
+    public static function delete (Request $request, Response $response)
+    
+    {
+        $data = $request ->getParsedBody();
+        (new CustomerRepository())->delete($data);
+
+        $response->getBody()->write(json_encode(['message'=> 'Customer deleted successfully']));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+
+    }
+
     
     
 }
