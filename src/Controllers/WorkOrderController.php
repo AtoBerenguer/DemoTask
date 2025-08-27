@@ -1,30 +1,34 @@
 <?php
+
 namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Repository\WorkOrderRepository;
 
-class WorkOrderController {
-    
-    public static function getAll(Request $request, Response $response) {
+class WorkOrderController
+{
+
+    public static function getAll(Request $request, Response $response)
+    {
         $workOrders = (new WorkOrderRepository())->getAll();
-        
+
         if (empty($workOrders)) {
             $response->getBody()->write(json_encode(['message' => 'No work orders found']));
             return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
         }
-        
+
         $response->getBody()->write(json_encode($workOrders));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
-    public static function create(Request $request, Response $response): Response {
+    public static function create(Request $request, Response $response): Response
+    {
         $data = json_decode($request->getBody()->getContents(), true);
 
         $data['customer_id'] = $data['customerId'];
         $data['inv_id'] = $data['ItemId'];
-        $data['start_date'] = date('Y-m-d H:i:s'); 
+        $data['start_date'] = date('Y-m-d H:i:s');
         $data['end_date'] = null;
         $data['state'] = 'Pendiente';
 
@@ -38,5 +42,18 @@ class WorkOrderController {
         return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
     }
 
-    
+
+    public static function getById(Request $request, Response $response)
+{
+    $data = $request->getParsedBody();
+    $workOrder = (new WorkOrderRepository())->getById($data);
+
+    if (empty($workOrder)) {
+        $response->getBody()->write(json_encode(['message' => 'Work order not found']));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+    }
+
+    $response->getBody()->write(json_encode($workOrder));
+    return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+}
 }

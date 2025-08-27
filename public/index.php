@@ -38,7 +38,7 @@ $app->post('/newOrder', [WorkOrderController::class, 'create']);
 $app->post('/newCustomer', [CustomerController::class, 'create']);
 $app->patch('/updateCustomer',[CustomerController::class, 'update']);
 $app->delete('/deleteCustomer',[CustomerController::class,'delete']);
-
+$app->patch('/WO',[WorkOrderController::class,'getById']);
 
 // $app->get('/tasks', [BrandController::class, 'getAll']);
 // $app->get('/tasks/{id}', [BrandController::class, 'getById']);
