@@ -6,7 +6,7 @@ use App\Controllers\BrandController;
 use App\Controllers\WorkOrderController;
 use App\Controllers\CustomerController;
 use App\Controllers\InventaryController;
-
+use App\Controllers\ModelController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -29,7 +29,7 @@ $app->options('/{routes:.+}', function (Request $request, Response $response): R
 });
 
 // RUTAS
-$app->post('/brand', [BrandController::class, 'create']); //CREAR MARCA
+$app->post('/newBrand', [BrandController::class, 'create']); //CREAR MARCA
 $app->get('/brand/{id}', [BrandController::class, 'getById']); //OBTENER MARCA POR ID
 $app->get('/workorders', [WorkOrderController::class, 'getAll']); //OBTENER TODAS LAS ORDENES DE TRABAJO
 $app->get('/customers', [CustomerController::class, 'getAll']); //OBTENER TODOS LOS CLIENTES 
@@ -39,6 +39,8 @@ $app->post('/newCustomer', [CustomerController::class, 'create']);
 $app->patch('/updateCustomer',[CustomerController::class, 'update']);
 $app->delete('/deleteCustomer',[CustomerController::class,'delete']);
 $app->patch('/WO',[WorkOrderController::class,'getById']);
+$app->get('/inv',[InventaryController::class,'getAll']);
+$app->post('/newModel',[ModelController::class,'create']);
 
 // $app->get('/tasks', [BrandController::class, 'getAll']);
 // $app->get('/tasks/{id}', [BrandController::class, 'getById']);

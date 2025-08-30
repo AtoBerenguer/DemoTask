@@ -20,5 +20,12 @@ class InventaryController {
         $response->getBody()->write(json_encode($item));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
+    public function getAll(Request $request, Response $response)
+    {
+        $inventary = (new InventaryRepository())->getAll();
+        $response->getBody()->write(json_encode($inventary));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+    
+    }
     
 }
