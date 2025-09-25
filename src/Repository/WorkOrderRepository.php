@@ -107,4 +107,18 @@ class WorkOrderRepository
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function newComment($data)
+    {
+        $stmt = $this->db->prepare("INSERT INTO comments (Wo_Id, Message,Data) VALUES (:Wo_Id, :Message,:Date)");
+        $stmt->bindParam(':Wo_Id', $data['id']);
+        $stmt->bindParam(':Message', $data['newComment']);
+        $stmt->bindParam(':Date', $data['date']);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+
+    }
 }
