@@ -44,16 +44,34 @@ class WorkOrderController
 
 
     public static function getById(Request $request, Response $response)
-{
-    $data = $request->getParsedBody();
-    $workOrder = (new WorkOrderRepository())->getById($data);
+    {
+        $data = $request->getParsedBody();
+        $workOrder = (new WorkOrderRepository())->getById($data);
 
-    if (empty($workOrder)) {
-        $response->getBody()->write(json_encode(['message' => 'Work order not found']));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+        if (empty($workOrder)) {
+            $response->getBody()->write(json_encode(['message' => 'Work order not found']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+        }
+
+        $response->getBody()->write(json_encode($workOrder));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
-    $response->getBody()->write(json_encode($workOrder));
-    return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
-}
+    public static function newComment(Request $request, Response $response)
+    {
+        $data = json_decode($request->getBody()->getContents(),true);
+        $data['newComment']= $data['Message'];
+        $data['id']= $data['Wo_id'];
+        $data['date']=$data['Date'];
+
+        $newComment = (new WorkOrderRepository())->newComment($data);
+
+        if ($newComment) {
+            $response->getBody()->write(json_encode(['message' => 'Comment created successfully']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        }
+        $response->getBody()->write(json_encode(['message' => 'Failed to create a comment']));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+
+    }
 }

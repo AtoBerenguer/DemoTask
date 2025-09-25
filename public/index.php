@@ -41,6 +41,7 @@ $app->delete('/deleteCustomer',[CustomerController::class,'delete']);
 $app->patch('/WO',[WorkOrderController::class,'getById']);
 $app->get('/inv',[InventaryController::class,'getAll']);
 $app->post('/newModel',[ModelController::class,'create']);
+$app->post('/newComment',[WorkOrderController::class,'newComment']);
 
 // $app->get('/tasks', [BrandController::class, 'getAll']);
 // $app->get('/tasks/{id}', [BrandController::class, 'getById']);
