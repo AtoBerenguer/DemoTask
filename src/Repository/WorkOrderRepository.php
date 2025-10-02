@@ -110,10 +110,10 @@ class WorkOrderRepository
 
     public function newComment($data)
     {
-        $stmt = $this->db->prepare("INSERT INTO comments (Wo_Id, Message,Data) VALUES (:Wo_Id, :Message,:Date)");
+        $stmt = $this->db->prepare("INSERT INTO comments (Wo_Id, Message,Date) VALUES (:Wo_Id, :Message,:Date)");
         $stmt->bindParam(':Wo_Id', $data['id']);
         $stmt->bindParam(':Message', $data['newComment']);
-        $stmt->bindParam(':Date', $data['date']);
+        $stmt->bindParam(':Date', $data['formattedDate']);
 
         if ($stmt->execute()) {
             return true;

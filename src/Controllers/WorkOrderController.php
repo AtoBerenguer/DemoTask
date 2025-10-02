@@ -62,7 +62,7 @@ class WorkOrderController
         $data = json_decode($request->getBody()->getContents(),true);
         $data['newComment']= $data['Message'];
         $data['id']= $data['Wo_id'];
-        $data['date']=$data['Date'];
+        $data['date']=$data['formattedDate'];
 
         $newComment = (new WorkOrderRepository())->newComment($data);
 
