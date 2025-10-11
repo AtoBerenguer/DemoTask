@@ -29,20 +29,37 @@ $app->options('/{routes:.+}', function (Request $request, Response $response): R
 });
 
 // RUTAS
-$app->post('/newBrand', [BrandController::class, 'create']); //CREAR MARCA
-$app->get('/brand/{id}', [BrandController::class, 'getById']); //OBTENER MARCA POR ID
-$app->get('/workorders', [WorkOrderController::class, 'getAll']); //OBTENER TODAS LAS ORDENES DE TRABAJO
-$app->get('/customers', [CustomerController::class, 'getAll']); //OBTENER TODOS LOS CLIENTES 
-$app->get('/inv/{id}', [InventaryController::class, 'getById']);
+
+//WORK ORDERS
+$app->get('/workorders', [WorkOrderController::class, 'getAll']); 
 $app->post('/newOrder', [WorkOrderController::class, 'create']);
+$app->patch('/WO',[WorkOrderController::class,'getById']);
+$app->patch('/WO/newComment',[WorkOrderController::class,'newComment']);
+
+//BRANDS
+$app->post('/newBrand', [BrandController::class, 'create']); 
+$app->get('/brand/getAll',[BrandController::class,'getAll']);
+$app->patch('/brand/update',[BrandController::class,'update']);
+$app->delete('/brand/delete',[BrandController::class,'delete']);
+
+//MODELS
+$app->post('/newModel',[ModelController::class,'create']);
+$app->get('/model/getAll',[ModelController::class,'getAll']);
+$app->patch('/model/update',[ModelController::class,'update']);
+$app->delete('/model/delete',[ModelController::class,'delete']);
+
+//CUSTOMERS
+$app->get('/customers', [CustomerController::class, 'getAll']); 
 $app->post('/newCustomer', [CustomerController::class, 'create']);
 $app->patch('/updateCustomer',[CustomerController::class, 'update']);
 $app->delete('/deleteCustomer',[CustomerController::class,'delete']);
-$app->patch('/WO',[WorkOrderController::class,'getById']);
-$app->get('/inv',[InventaryController::class,'getAll']);
-$app->post('/newModel',[ModelController::class,'create']);
-$app->patch('/WO/newComment',[WorkOrderController::class,'newComment']);
 
+//INVENTORY
+$app->get('/inv/{id}', [InventaryController::class, 'getById']);
+$app->get('/inv',[InventaryController::class,'getAll']);
+
+
+// $app->get('/brand/{id}', [BrandController::class, 'getById']); 
 // $app->get('/tasks', [BrandController::class, 'getAll']);
 // $app->get('/tasks/{id}', [BrandController::class, 'getById']);
 // $app->put('/tasks/{id}', [BrandController::class, 'update']);

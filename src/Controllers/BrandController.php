@@ -28,5 +28,34 @@ use App\Repository\BrandRepository;
             $response->getBody()->write(json_encode(['Brand_Name' => $Brand_name]));
             return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
         }
+
+        public static function getAll(Request $request, Response $response)
+        {
+            $brands = (new BrandRepository())->getAll();
+            if (empty($brands))
+            {
+                $response->getBody()->write(json_encode(['message' => 'No brands found']));
+                return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+            }
+            $response->getBody()->write(json_encode($brands));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        }
+        public function update(Request $request, Response $response){
+            $data = $request ->getParsedBody();
+            (new BrandRepository())->update($data);
+
+            $response->getBody()->write(json_encode(['message'=>'Marca actualizada']));
+            return $response->withHeader('Content-Type','application/json')->withStatus(201);
+        }
+
+        public function delete(Request $request, Response $response){
+            $data = $request ->getParsedBody();
+            (new BrandRepository())->delete($data);
+
+            $response->getBody()->write(json_encode(['message'=>'Marca borrada']));
+            return $response->withHeader('Content-Type','application/json')->withStatus(201);
+            
+        }
+
         
     };
