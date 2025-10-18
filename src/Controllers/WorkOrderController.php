@@ -59,10 +59,10 @@ class WorkOrderController
 
     public static function newComment(Request $request, Response $response)
     {
-        $data = json_decode($request->getBody()->getContents(),true);
-        $data['newComment']= $data['Message'];
-        $data['id']= $data['Wo_id'];
-        $data['date']=$data['formattedDate'];
+        $data = json_decode($request->getBody()->getContents(), true);
+        $data['newComment'] = $data['Message'];
+        $data['id'] = $data['Wo_id'];
+        $data['date'] = $data['formattedDate'];
 
         $newComment = (new WorkOrderRepository())->newComment($data);
 
@@ -72,6 +72,16 @@ class WorkOrderController
         }
         $response->getBody()->write(json_encode(['message' => 'Failed to create a comment']));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+    }
 
+    public function newState(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+        $newState = (new WorkOrderRepository())->newState($data);
+
+        if ($newState) {
+            $response->getBody()->write(json_encode(['message' => 'State updated successfully']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        }
     }
 }

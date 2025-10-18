@@ -119,6 +119,19 @@ class WorkOrderRepository
             return true;
         }
         return false;
+    }
 
+    public function newState($data)
+    {
+        $stmt = $this->db->prepare("UPDATE WorkOrder SET State = :State, EndDate = :EndDate WHERE Id = :Id");
+        $stmt->bindParam(':State', $data['newState']);
+        $stmt->bindParam(':EndDate', $data['endDate']);
+        $stmt->bindParam(':Id', $data['id']);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

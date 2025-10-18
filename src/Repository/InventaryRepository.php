@@ -1,16 +1,21 @@
 <?php
+
 namespace App\Repository;
+
 use App\Connection\dbConnection;
 use PDO;
 
-class InventaryRepository {
+class InventaryRepository
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = dbConnection::getConnection();
     }
 
-    public function getById($id) {
+    public function getById($id)
+    {
         $stmt = $this->db->prepare("SELECT 
             i.Id AS ItemId,
             i.Typology AS Typology,
@@ -22,7 +27,8 @@ class InventaryRepository {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         $stmt = $this->db->prepare("SELECT 
         i.Id as ItemId,
         i.Typology as Typology,
@@ -39,5 +45,11 @@ class InventaryRepository {
 
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function create($data)
+    {
+        $stmt = $this->db->prepare("INSERT INTO Inventary (Typology, SerialNumber, Brand_Id, Model_Id, Cust_Id,IsActive) 
+        VALUES (:typology, :serialNumber, :brandId, :modelId, :custId, :isActive)");
     }
 }

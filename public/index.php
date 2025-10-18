@@ -19,7 +19,7 @@ $app->addRoutingMiddleware();
 $app->add(function (Request $request, RequestHandlerInterface $handler): Response {
     $response = $handler->handle($request);
     return $response
-        ->withHeader('Access-Control-Allow-Origin', '*') 
+        ->withHeader('Access-Control-Allow-Origin', '*')
         ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE, OPTIONS');
 });
@@ -31,33 +31,34 @@ $app->options('/{routes:.+}', function (Request $request, Response $response): R
 // RUTAS
 
 //WORK ORDERS
-$app->get('/workorders', [WorkOrderController::class, 'getAll']); 
+$app->get('/workorders', [WorkOrderController::class, 'getAll']);
 $app->post('/newOrder', [WorkOrderController::class, 'create']);
-$app->patch('/WO',[WorkOrderController::class,'getById']);
-$app->patch('/WO/newComment',[WorkOrderController::class,'newComment']);
+$app->patch('/WO', [WorkOrderController::class, 'getById']);
+$app->patch('/WO/newComment', [WorkOrderController::class, 'newComment']);
+$app->patch('/WO/newState', [WorkOrderController::class, 'newState']);
 
 //BRANDS
-$app->post('/newBrand', [BrandController::class, 'create']); 
-$app->get('/brand/getAll',[BrandController::class,'getAll']);
-$app->patch('/brand/update',[BrandController::class,'update']);
-$app->delete('/brand/delete',[BrandController::class,'delete']);
+$app->post('/newBrand', [BrandController::class, 'create']);
+$app->get('/brand/getAll', [BrandController::class, 'getAll']);
+$app->patch('/brand/update', [BrandController::class, 'update']);
+$app->delete('/brand/delete', [BrandController::class, 'delete']);
 
 //MODELS
-$app->post('/newModel',[ModelController::class,'create']);
-$app->get('/model/getAll',[ModelController::class,'getAll']);
-$app->patch('/model/update',[ModelController::class,'update']);
-$app->delete('/model/delete',[ModelController::class,'delete']);
+$app->post('/newModel', [ModelController::class, 'create']);
+$app->get('/model/getAll', [ModelController::class, 'getAll']);
+$app->patch('/model/update', [ModelController::class, 'update']);
+$app->delete('/model/delete', [ModelController::class, 'delete']);
 
 //CUSTOMERS
-$app->get('/customers', [CustomerController::class, 'getAll']); 
+$app->get('/customers', [CustomerController::class, 'getAll']);
 $app->post('/newCustomer', [CustomerController::class, 'create']);
-$app->patch('/updateCustomer',[CustomerController::class, 'update']);
-$app->delete('/deleteCustomer',[CustomerController::class,'delete']);
+$app->patch('/updateCustomer', [CustomerController::class, 'update']);
+$app->delete('/deleteCustomer', [CustomerController::class, 'delete']);
 
 //INVENTORY
 $app->get('/inv/{id}', [InventaryController::class, 'getById']);
-$app->get('/inv',[InventaryController::class,'getAll']);
-
+$app->get('/inv', [InventaryController::class, 'getAll']);
+$app->patch('/inv/newInv',[InventaryController::class, 'newInv']);
 
 // $app->get('/brand/{id}', [BrandController::class, 'getById']); 
 // $app->get('/tasks', [BrandController::class, 'getAll']);

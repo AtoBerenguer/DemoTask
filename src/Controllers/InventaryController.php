@@ -27,5 +27,14 @@ class InventaryController {
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     
     }
+
+    public function newInv(Request $request, Response $response) {
+        $data = $request->getParsedBody();
+        (new InventaryRepository())->create($data);
+        
+        $response->getBody()->write(json_encode(['message' => 'Inventoy item created successfully']));
+        return $response->withHeader('Content-Type','apllication/json')->withStatus(201);
+        
+    }
     
 }
