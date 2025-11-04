@@ -50,7 +50,7 @@ $app->patch('/model/update', [ModelController::class, 'update']);
 $app->delete('/model/delete', [ModelController::class, 'delete']);
 
 //CUSTOMERS
-$app->get('/customers', [CustomerController::class, 'getAll']);
+$app->get('/customers/getAll', [CustomerController::class, 'getAll']);
 $app->post('/newCustomer', [CustomerController::class, 'create']);
 $app->patch('/updateCustomer', [CustomerController::class, 'update']);
 $app->delete('/deleteCustomer', [CustomerController::class, 'delete']);
