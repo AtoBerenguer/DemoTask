@@ -48,8 +48,16 @@ class InventaryRepository
     }
 
     public function create($data)
-    {
-        $stmt = $this->db->prepare("INSERT INTO Inventary (Typology, SerialNumber, Brand_Id, Model_Id, Cust_Id,IsActive) 
-        VALUES (:typology, :serialNumber, :brandId, :modelId, :custId, :isActive)");
+    {   
+        $stmt = $this->db->prepare(
+            "INSERT INTO Inventary (Typology, SerialNumber, Brand_Id, Model_Id, Cust_Id,IsActive) 
+                VALUES (:typology, :serialNumber, :brandId, :modelId, :clientId");
+        $stmt->bindParam(':typology', $data['typology']);
+        $stmt->bindParam(':serialNumber', $data['serialNumber']);
+        $stmt->bindParam(':brandId', $data['brandId']);
+        $stmt->bindParam(':modelId', $data['modelId']);
+        $stmt->bindParam(':custId', $data['clientId']);
+        $stmt->bindParam(':isActive', 1);
+        $stmt->execute();
     }
 }

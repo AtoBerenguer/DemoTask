@@ -55,10 +55,10 @@ $app->post('/newCustomer', [CustomerController::class, 'create']);
 $app->patch('/updateCustomer', [CustomerController::class, 'update']);
 $app->delete('/deleteCustomer', [CustomerController::class, 'delete']);
 
-//INVENTORY
+//INVENTORYx
 $app->get('/inv/{id}', [InventaryController::class, 'getById']);
 $app->get('/inv', [InventaryController::class, 'getAll']);
-$app->patch('/inv/newInv',[InventaryController::class, 'newInv']);
+$app->post('/inv/newInv',[InventaryController::class, 'newInv']);
 
 // $app->get('/brand/{id}', [BrandController::class, 'getById']); 
 // $app->get('/tasks', [BrandController::class, 'getAll']);

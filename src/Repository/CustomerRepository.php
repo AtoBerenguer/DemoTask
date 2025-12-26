@@ -26,6 +26,7 @@ class CustomerRepository {
     public function create(array $data){
         $stmt = $this->db->prepare("INSERT INTO customer (Company, PhoneNumber, Email)
         VALUES (:Company, :PhoneNumber, :Email)");
+        
         if (empty($data['Company']) || empty($data['PhoneNumber']) || empty($data['Email'])){
             throw new Error('All fields are required');}
         $stmt->bindParam(':Company', $data['Company']);
