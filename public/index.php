@@ -36,6 +36,7 @@ $app->post('/newOrder', [WorkOrderController::class, 'create']);
 $app->patch('/WO', [WorkOrderController::class, 'getById']);
 $app->patch('/WO/newComment', [WorkOrderController::class, 'newComment']);
 $app->patch('/WO/newState', [WorkOrderController::class, 'newState']);
+$app->patch('/WO/deleteComment', [WorkOrderController::class, 'deleteComment']);
 
 //BRANDS
 $app->post('/newBrand', [BrandController::class, 'create']);

@@ -134,4 +134,15 @@ class WorkOrderRepository
             return false;
         }
     }
+
+    function deleteComment($data)
+    {
+        $stmt = $this->db->prepare("DELETE FROM comments WHERE Id = :Id");
+        $stmt->bindParam(':Id', $data['commentId']);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -84,4 +84,15 @@ class WorkOrderController
             return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
         }
     }
+
+    function deleteComment(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+        $deleteComment = (new WorkOrderRepository())->deleteComment($data);
+
+        if ($deleteComment) {
+            $response->getBody()->write(json_encode(['message' => 'Comment deleted successfully']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        }
+    }
 }
